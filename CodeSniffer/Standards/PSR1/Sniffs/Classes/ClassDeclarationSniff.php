@@ -47,7 +47,6 @@ class PSR1_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
                 T_INTERFACE,
                 T_TRAIT,
                );
-
     }//end register()
 
 
@@ -85,18 +84,15 @@ class PSR1_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
             $phpcsFile->recordMetric($stackPtr, 'One class per file', 'yes');
         }
 
-        if ($this->_phpVersion >= 50300) {
-            $namespace = $phpcsFile->findNext(array(T_NAMESPACE, T_CLASS, T_INTERFACE, T_TRAIT), 0);
-            if ($tokens[$namespace]['code'] !== T_NAMESPACE) {
-                $error = 'Each %s must be in a namespace of at least one level (a top-level vendor name)';
-                $phpcsFile->addError($error, $stackPtr, 'MissingNamespace', $errorData);
-                $phpcsFile->recordMetric($stackPtr, 'Class defined in namespace', 'no');
-            } else {
-                $phpcsFile->recordMetric($stackPtr, 'Class defined in namespace', 'yes');
-            }
-        }
-
+        // if ($this->_phpVersion >= 50300) {
+        //     $namespace = $phpcsFile->findNext(array(T_NAMESPACE, T_CLASS, T_INTERFACE, T_TRAIT), 0);
+        //     if ($tokens[$namespace]['code'] !== T_NAMESPACE) {
+        //         $error = 'Each %s must be in a namespace of at least one level (a top-level vendor name)';
+        //         $phpcsFile->addError($error, $stackPtr, 'MissingNamespace', $errorData);
+        //         $phpcsFile->recordMetric($stackPtr, 'Class defined in namespace', 'no');
+        //     } else {
+        //         $phpcsFile->recordMetric($stackPtr, 'Class defined in namespace', 'yes');
+        //     }
+        // }
     }//end process()
-
-
 }//end class
