@@ -100,7 +100,6 @@ class Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff extends PHP_Co
     public function __construct()
     {
         parent::__construct(array(T_CLASS, T_INTERFACE, T_TRAIT), array(T_FUNCTION), true);
-
     }//end __construct()
 
 
@@ -152,25 +151,24 @@ class Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff extends PHP_Co
         $methodName = ltrim($methodName, '_');
 
         $methodProps = $phpcsFile->getMethodProperties($stackPtr);
-        if (PHP_CodeSniffer::isCamelCaps($methodName, false, true, $this->strict) === false) {
-            if ($methodProps['scope_specified'] === true) {
-                $error = '%s method name "%s" is not in camel caps format';
-                $data  = array(
-                          ucfirst($methodProps['scope']),
-                          $errorData[0],
-                         );
-                $phpcsFile->addError($error, $stackPtr, 'ScopeNotCamelCaps', $data);
-            } else {
-                $error = 'Method name "%s" is not in camel caps format';
-                $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
-            }
-
-            $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'no');
-            return;
-        } else {
-            $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'yes');
-        }
-
+        // if (PHP_CodeSniffer::isCamelCaps($methodName, false, true, $this->strict) === false) {
+        //     if ($methodProps['scope_specified'] === true) {
+        //         $error = '%s method name "%s" is not in camel caps format';
+        //         $data  = array(
+        //                   ucfirst($methodProps['scope']),
+        //                   $errorData[0],
+        //                  );
+        //         $phpcsFile->addError($error, $stackPtr, 'ScopeNotCamelCaps', $data);
+        //     } else {
+        //         $error = 'Method name "%s" is not in camel caps format';
+        //         $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
+        //     }
+        //
+        //     $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'no');
+        //     return;
+        // } else {
+        //     $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'yes');
+        // }
     }//end processTokenWithinScope()
 
 
@@ -197,8 +195,8 @@ class Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff extends PHP_Co
         if (preg_match('|^__|', $functionName) !== 0) {
             $magicPart = strtolower(substr($functionName, 2));
             if (isset($this->magicFunctions[$magicPart]) === false) {
-                 $error = 'Function name "%s" is invalid; only PHP magic methods should be prefixed with a double underscore';
-                 $phpcsFile->addError($error, $stackPtr, 'FunctionDoubleUnderscore', $errorData);
+                $error = 'Function name "%s" is invalid; only PHP magic methods should be prefixed with a double underscore';
+                $phpcsFile->addError($error, $stackPtr, 'FunctionDoubleUnderscore', $errorData);
             }
 
             return;
@@ -214,8 +212,5 @@ class Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff extends PHP_Co
         } else {
             $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'yes');
         }
-
     }//end processTokenOutsideScope()
-
-
 }//end class
