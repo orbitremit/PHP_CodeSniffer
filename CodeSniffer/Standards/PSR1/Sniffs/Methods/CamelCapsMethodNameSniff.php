@@ -62,16 +62,15 @@ class PSR1_Sniffs_Methods_CamelCapsMethodNameSniff extends Generic_Sniffs_Naming
         }
 
         $testName = ltrim($methodName, '_');
-        if ($testName !== '' && PHP_CodeSniffer::isCamelCaps($testName, false, true, false) === false) {
-            $error     = 'Method name "%s" is not in camel caps format';
-            $className = $phpcsFile->getDeclarationName($currScope);
-            $errorData = array($className.'::'.$methodName);
-            $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
-            $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'no');
-        } else {
+        // if ($testName !== '' && PHP_CodeSniffer::isCamelCaps($testName, false, true, false) === false) {
+        //     $error     = 'Method name "%s" is not in camel caps format';
+        //     $className = $phpcsFile->getDeclarationName($currScope);
+        //     $errorData = array($className.'::'.$methodName);
+        //     $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
+        //     $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'no');
+        // } else {
             $phpcsFile->recordMetric($stackPtr, 'CamelCase method name', 'yes');
-        }
-
+        // }
     }//end processTokenWithinScope()
 
 
@@ -86,8 +85,5 @@ class PSR1_Sniffs_Methods_CamelCapsMethodNameSniff extends Generic_Sniffs_Naming
      */
     protected function processTokenOutsideScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
-
     }//end processTokenOutsideScope()
-
-
 }//end class
